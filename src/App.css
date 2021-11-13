@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: darkblue;
+  color: white;
+  
+}
+.navBar p {
+  padding-right: 25px;
+  padding-left: 5px;
+  margin: 25px;
+}
+
+.carrito_logo {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.header_navbar {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding-right: 25px;
+  padding-left: 25px;
+}
