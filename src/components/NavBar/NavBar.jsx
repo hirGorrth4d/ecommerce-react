@@ -13,9 +13,6 @@ function NavBar() {
                 <p>Cursos de Enfermeria</p>
                 <p>Cursos de Criocirugia</p>
             </div>
-
-            
-
         </div>
     )
 }

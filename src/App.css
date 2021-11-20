@@ -54,8 +54,13 @@
 .carrito_logo {
   width: 40px;
   height: 40px;
-  padding: 5px;
+  color: white;
   margin-top: 10px;
+}
+.carrito {
+  display: flex;
+  flex-direction: row;
+  color: white;
 }
 
 .header_navbar {
@@ -64,4 +69,13 @@
   align-content: center;
   padding-right: 25px;
   padding-left: 25px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
