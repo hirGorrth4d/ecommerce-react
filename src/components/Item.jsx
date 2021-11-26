@@ -1,6 +1,7 @@
 import React from 'react'
+import ItemContador from './ItemContador'
 
-function Item({id, name, imgUrl, price}) {
+function Item({id, name, imgUrl, price, stock}) {
     return (
         <div key={id} className="cards">
             <div className="card w-75">
@@ -8,7 +9,7 @@ function Item({id, name, imgUrl, price}) {
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
                     <p className="card-text">${price}</p>
-                    <button className="btn btn-outline-primary">Inscribite</button>
+                    <ItemContador stock={stock} id={id}/>
                 </div>
             </div>
         </div>
