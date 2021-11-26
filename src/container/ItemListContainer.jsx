@@ -1,5 +1,5 @@
 import React from 'react';
-import ItemList from './ItemList';
+import ItemList from '../components/ItemList';
 import { useEffect, useState } from 'react';
 import Items from '../items';
 
