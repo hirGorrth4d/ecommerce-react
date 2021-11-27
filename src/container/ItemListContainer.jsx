@@ -2,45 +2,43 @@ import React from 'react';
 import ItemList from '../components/ItemList';
 import { useEffect, useState } from 'react';
 import Items from '../items';
-
-
-
-
-
-
-
+import {useParams} from 'react-router-dom'
 
 function ItemListContainer(props) {
-    const getFetch = new Promise((aceptada, rechazada)=> {
+    
+      
+    const [loading, setLoading] = useState(true)
+    const [products, setProducts] = useState ([])
+    
+    const {catIdParams} =useParams();
+    
+    useEffect(()=>{
+      const getFetch = new Promise((aceptada, rechazada)=> {
         setTimeout(()=>{
           aceptada(Items)
         }, 2000)
       
       })
-      
-    const [loading, setLoading] = useState(true)
-    const [products, setProducts] = useState ([])
-    
-    
-    
-    useEffect(()=>{
-      getFetch
-      .then(data => {
-          console.log(Items)
-          setProducts(data)
-          console.log(data)
+      if (catIdParams){
+        getFetch
+        .then((Items)=>{
+          setProducts(Items.filter(producto=>producto.categoria === catIdParams))
         })
-      .catch(err => console.log(err))
-      // .then(resp => console.log(resp))
-      .finally(()=> setLoading(false))
-      return () => {
-        console.log ('clean')
+        .catch(err => console.log(err))
+        .finally(()=> setLoading(false))
+      } else {
+        getFetch.then((Items) => {
+          setProducts(Items);
+        })
+        .finally(()=>{
+          setLoading(false);
+        })
       }
-    }, [])
+    }, [catIdParams])
 
     return (
         <div>
-            <h1>{props.greeting}</h1>
+            
             <ItemList loading={loading} products={products}/>
         </div>
     )

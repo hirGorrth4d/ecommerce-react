@@ -1,17 +1,18 @@
 import React from 'react'
 import CartWidget from './CartWidget.jsx';
+import {Link} from 'react-router-dom'
 
 function NavBar() {
     return (
         <div>
             <div className="header_navbar">
-                <h1>FISP</h1>
+                <Link to="/" style={{textDecoration: "none", color: "primary"}}><h1>FISP</h1></Link>
                 <CartWidget />
             </div>
             <div className="navBar">
-                <p>Cursos de Telemedicina</p>
-                <p>Cursos de Enfermeria</p>
-                <p>Cursos de Criocirugia</p>
+                <Link to="/categoria/telemedicina" style={{textDecoration: "none", color: "white"}}><p>Telemedicina</p></Link>
+                <Link to="/categoria/enfermeria" style={{textDecoration: "none", color: "white"}}><p>Enfermeria</p></Link>
+                <Link to="/categoria/dermatologia" style={{textDecoration: "none", color: "white"}}><p>Dermatologia</p></Link>
             </div>
         </div>
     )
