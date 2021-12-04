@@ -1,15 +1,18 @@
 import React from 'react';
 import {useState} from 'react';
+import {Link} from 'react-router-dom'
+import { useCartContext } from '../context/cartContext';
 
 
 
 
-export default function ItemContador(props) {
+export default function ItemContador({id, name, price, imgUrl, description, stock}) {
 
     const [count, setCount] =useState(0);
 
+
     const sumarContador = () => {
-        if (count < props.stock){
+        if (count < stock){
             setCount(count + 1);
 
         } else {
@@ -42,7 +45,7 @@ export default function ItemContador(props) {
             <button onClick={sumarContador} className="btn btn-outline-primary">+</button>
             <p>{count}</p>
             <button onClick={restarContador} className="btn btn-outline-primary">-</button>
-            <button onClick={agregarCarrito} className="btn btn-outline-primary">Reservá</button>
+            
         </div>
     )
 

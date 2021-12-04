@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import ItemDetalle from '../components/ItemDetalle';
 import Items from '../items';
+import {Container, Row, Col} from 'react-bootstrap'
 
 
 function ItemDetalleContainer() {
@@ -39,6 +40,7 @@ function ItemDetalleContainer() {
     return (
         <div className="cards col-lg-12">
            {loading? <h1>Cargando</h1> : <ItemDetalle id={productoUno.id} name={productoUno.name} price={productoUno.price} imgUrl={productoUno.imgUrl} description={productoUno.description} categoria={productoUno.categoria} stock={productoUno.stock} />}
+                               
         </div>
     )
 
