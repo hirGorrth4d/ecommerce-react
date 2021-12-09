@@ -7,7 +7,9 @@ function NavBar() {
         <div>
             <div className="header_navbar">
                 <Link to="/" style={{textDecoration: "none", color: "primary"}}><h1>FISP</h1></Link>
-                <CartWidget />
+                <Link to="/cart"  style={{textDecoration: "none", color: "primary", fontWeight:"bold"}}>
+                    <CartWidget />
+                </Link>
             </div>
             <div className="navBar">
                 <Link to="/categoria/telemedicina" style={{textDecoration: "none", color: "white"}}><p>Telemedicina</p></Link>
