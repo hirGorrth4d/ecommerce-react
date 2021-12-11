@@ -9,34 +9,38 @@ import {Link} from 'react-router-dom'
 
 
 
+
 const ItemDetalle = ({id, name, price, imgUrl, description, stock}) => {
+    const [count, setCount] = useState(1);
+
+    const {cartList, agregarProducto} = useCartContext();
+
     const InputCount= ()=> {
 
         return <button className="btn btn-outline-primary" onClick={()=>onAdd(3)}>Ir al carrito</button>
     }
+    console.log(cartList)
     
     
     
-    const ButtonCount= ({handleInter})=> {
-        return <button className="btn btn-outline-success" onClick={handleInter}  >Agregar Al carrito</button>
+    const ButtonCount= ({handleClick})=> {
+        return <button className="btn btn-outline-success" onClick={handleClick}  >Agregar Al carrito</button>
     
     }
     
+   
 
 
-    const [count, setCount] = useState(1);
-    const {cartList, agregarProducto} = useCartContext();
     function onAdd(cant){
         setCount(cant)
-        agregarProducto({item: name, cantidad: stock, foto: imgUrl, precio: price})
+        agregarProducto({...agregarProducto, cantidad: cant})
 
     }
-    console.log(cartList);
+    function handleClick (){
+        onAdd(count)
+    }
     const [inputType, setInputType ] = useState('button')
 
-    const handleInter=()=>{
-        setInputType('input')
-    }
     
 
     return (
@@ -53,7 +57,7 @@ const ItemDetalle = ({id, name, price, imgUrl, description, stock}) => {
                     <ItemContador stock={stock} id={id} />
                     {
                         inputType === 'button' ? 
-                            <ButtonCount handleInter={handleInter} />
+                            <ButtonCount handleClick={handleClick} />
                         : 
                         <Link to="/cart"  style={{textDecoration: "none", color: "primary", fontWeight:"bold"}}>
                             <InputCount />

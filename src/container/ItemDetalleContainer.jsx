@@ -2,8 +2,8 @@ import React from 'react';
 import {useEffect, useState} from 'react';  
 import {useParams} from 'react-router-dom';
 import ItemDetalle from '../components/ItemDetalle';
-import Items from '../items';
-import {Container, Row, Col} from 'react-bootstrap'
+import getFirestore from '../firebase/firebase';
+
 
 
 function ItemDetalleContainer() {
@@ -17,24 +17,13 @@ function ItemDetalleContainer() {
     
     
     useEffect(()=>{
-      const getFetchUno = new Promise((aceptada, rechazada)=> {
-        setTimeout(()=>{
-          aceptada(Items.find(producto => producto.id ===Number(itemIdParams)))
-        }, 3000)
-      
+      const db = getFirestore();
+      db.collection ('items'). doc(itemIdParams).get()
+      .then(resp=> {
+        setProductUno({id: resp.id, ...resp.data()} )
       })
-      getFetchUno
-      .then(data => {
-          console.log(Items)
-          setProductUno(data)
-          console.log(data)
-        })
       .catch(err => console.log(err))
-      // .then(resp => console.log(resp))
       .finally(()=> setLoading(false))
-      return () => {
-        console.log ('clean')
-      }
     }, [itemIdParams])
 
     return (

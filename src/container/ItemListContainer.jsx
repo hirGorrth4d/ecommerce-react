@@ -1,38 +1,35 @@
 import React from 'react';
 import ItemList from '../components/ItemList';
 import { useEffect, useState } from 'react';
-import Items from '../items';
 import {useParams} from 'react-router-dom'
+import getFirestore from '../firebase/firebase';
+import {Link} from 'react-router-dom'
+
 
 function ItemListContainer(props) {
     
       
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState ([])
-    
+    const [bool, setBool] = useState (true)
     const {catIdParams} =useParams();
+
+    
     
     useEffect(()=>{
-      const getFetch = new Promise((aceptada, rechazada)=> {
-        setTimeout(()=>{
-          aceptada(Items)
-        }, 2000)
-      
-      })
+      const dbQuery = getFirestore();
+
       if (catIdParams){
-        getFetch
-        .then((Items)=>{
-          setProducts(Items.filter(producto=>producto.categoria === catIdParams))
-        })
-        .catch(err => console.log(err))
-        .finally(()=> setLoading(false))
+        dbQuery.collection('items').where('categoria', '==', catIdParams).get()
+        .then(data => setProducts(data.docs.map(item => ({"id": item.id, ...item.data()} ) ) ) )
+        .catch(err=> console.log(err))
+        .finally (()=> setLoading(false)  )
+
       } else {
-        getFetch.then((Items) => {
-          setProducts(Items);
-        })
-        .finally(()=>{
-          setLoading(false);
-        })
+        dbQuery.collection('items').get()
+        .then(data => setProducts(data.docs.map(item =>({id: item.id, ...item.data()} )) ))
+        .catch(err=> console.log(err))
+        .finally(()=> setLoading (false))
       }
     }, [catIdParams])
 

@@ -1,12 +1,8 @@
 import React from 'react';
 import {useState} from 'react';
-import {Link} from 'react-router-dom'
-import { useCartContext } from '../context/cartContext';
 
 
-
-
-export default function ItemContador({id, name, price, imgUrl, description, stock}) {
+export default function ItemContador({stock=1, onAdd}) {
 
     const [count, setCount] =useState(0);
 
@@ -30,10 +26,7 @@ export default function ItemContador({id, name, price, imgUrl, description, stoc
         }
     }
 
-    const agregarCarrito = () =>{
-
-    }
-
+    
 
     return (
         <div style={

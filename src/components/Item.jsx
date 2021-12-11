@@ -1,5 +1,4 @@
 import React from 'react'
-import ItemContador from './ItemContador'
 import {Link} from 'react-router-dom'
 
 function Item({id, name, imgUrl, price, stock}) {

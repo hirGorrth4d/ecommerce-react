@@ -12,9 +12,9 @@ function NavBar() {
                 </Link>
             </div>
             <div className="navBar">
-                <Link to="/categoria/telemedicina" style={{textDecoration: "none", color: "white"}}><p>Telemedicina</p></Link>
-                <Link to="/categoria/enfermeria" style={{textDecoration: "none", color: "white"}}><p>Enfermeria</p></Link>
-                <Link to="/categoria/dermatologia" style={{textDecoration: "none", color: "white"}}><p>Dermatologia</p></Link>
+                <Link to="/categoria/telemedicina" style={{textDecoration: "none", color: "white", fontWeight: "bold"}}><p>Telemedicina</p></Link>
+                <Link to="/categoria/enfermeria" style={{textDecoration: "none", color: "white", fontWeight: "bold"}}><p>Enfermeria</p></Link>
+                <Link to="/categoria/dermatologia" style={{textDecoration: "none", color: "white", fontWeight: "bold"}}><p>Dermatologia</p></Link>
             </div>
         </div>
     )
