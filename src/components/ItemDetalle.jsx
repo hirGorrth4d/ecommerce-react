@@ -11,34 +11,35 @@ import {Link} from 'react-router-dom'
 
 
 const ItemDetalle = ({id, name, price, imgUrl, description, stock}) => {
-    const [count, setCount] = useState(1);
+    const [count, setCount] = useState(0);
 
     const {cartList, agregarProducto} = useCartContext();
 
     const InputCount= ()=> {
 
-        return <button className="btn btn-outline-primary" onClick={()=>onAdd(3)}>Ir al carrito</button>
+        return <button className="btn btn-outline-primary">Ir al carrito</button>
     }
     console.log(cartList)
     
     
     
-    const ButtonCount= ({handleClick})=> {
-        return <button className="btn btn-outline-success" onClick={handleClick}  >Agregar Al carrito</button>
+    const ButtonCount= ()=> {
+        return <button className="btn btn-outline-success" onClick={onAdd}  >Agregar Al carrito</button>
     
     }
     
    
 
 
-    function onAdd(cant){
-        setCount(cant)
-        agregarProducto({...agregarProducto, cantidad: cant})
+    function onAdd(){
+        setCount(count)
+        agregarProducto({id, name, price, imgUrl, cantidad: count})
+        setInputType("cart")
 
     }
-    function handleClick (){
-        onAdd(count)
-    }
+    // function handleClick (){
+    //     onAdd(count)
+    // }
     const [inputType, setInputType ] = useState('button')
 
     
@@ -54,10 +55,10 @@ const ItemDetalle = ({id, name, price, imgUrl, description, stock}) => {
                     <p className="card-text">{description}</p>
                     <p>${price}</p>
                     {/* <button onClick={()=>onAdd(3)} className="btn btn-outline-primary">Agregar al carrito</button> */}
-                    <ItemContador stock={stock} id={id} />
+                    <ItemContador stock={stock} id={id} restar={()=> setCount(count -1)} sumar={()=> setCount(count+1)} count={count} />
                     {
                         inputType === 'button' ? 
-                            <ButtonCount handleClick={handleClick} />
+                            <ButtonCount  />
                         : 
                         <Link to="/cart"  style={{textDecoration: "none", color: "primary", fontWeight:"bold"}}>
                             <InputCount />

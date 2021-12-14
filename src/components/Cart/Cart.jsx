@@ -1,6 +1,6 @@
 import { useCartContext } from "../../context/cartContext";
 import {Container, Row, Col} from 'react-bootstrap'
-import getFirestore from '../../firebase/firebase';
+import db from '../../firebase/firebase';
 import {useState} from 'react'
 import firebase from 'firebase'
 import 'firebase/firestore'
@@ -29,7 +29,7 @@ function Cart(Items){
             return {id: id ,nombre: nombre, precio: precio}
         })
 
-        const db = getFirestore();
+
         db.collection('orders').add(orden)
         .then(resp => setIdOrder(resp.id))
 
@@ -56,7 +56,7 @@ function Cart(Items){
         
           console.log('verificar cupon')
           console.log(orden)
-
+        
     }
 
     
@@ -88,7 +88,7 @@ function Cart(Items){
                                             <Row xs={4} lg={4} xl={8}>
                                                 
                                                 <Col>
-                                                    <img src={Items.foto} alt={Items.item} className="card-img-top"/>
+                                                    <img src={Items.imgUrl} alt={Items.item} className="card-img-top"/>
                                                 </Col>
                                                 <Col  className="align-self-center">
                                                     {Items.name}
@@ -97,13 +97,13 @@ function Cart(Items){
                                                     {Items.cantidad}
                                                 </Col>
                                                 <Col className="align-self-center">
-                                                    ${Items.precio}
+                                                    ${Items.price}
                                                 </Col>
                                             </Row>
                                         </Container>
                                     </div>)}
             <button onClick={()=> vaciarCarrito()} className="btn btn-outline-primary">Vaciar Carrito</button>
-            {/* {`Precio total: ${precioTotal()}`} */}
+            {`Precio total: ${precioTotal()}`}
             <form onSubmit={generarOrden}>
                 <input type='text' name='name' placeholder='name'/>
                 <input type='text' name='phone'placeholder='tel' />
