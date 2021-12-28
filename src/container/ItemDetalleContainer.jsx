@@ -24,7 +24,7 @@ function ItemDetalleContainer() {
       })
       .catch(err => console.log(err))
       .finally(()=> setLoading(false))
-    }, [itemIdParams])
+    },[itemIdParams])
 
     return (
         <div className="cards col-lg-12">

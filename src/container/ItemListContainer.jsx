@@ -3,7 +3,7 @@ import ItemList from '../components/ItemList';
 import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom'
 import getFirestore from '../firebase/firebase';
-import {Link} from 'react-router-dom'
+
 
 
 function ItemListContainer(props) {
@@ -11,7 +11,7 @@ function ItemListContainer(props) {
       
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState ([])
-    const [bool, setBool] = useState (true)
+    
     const {catIdParams} =useParams();
 
     
