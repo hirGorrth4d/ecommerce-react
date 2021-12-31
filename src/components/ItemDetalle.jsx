@@ -37,9 +37,7 @@ const ItemDetalle = ({id, name, price, imgUrl, description, stock}) => {
         setInputType("cart")
 
     }
-    // function handleClick (){
-    //     onAdd(count)
-    // }
+
     const [inputType, setInputType ] = useState('button')
 
     
@@ -48,8 +46,8 @@ const ItemDetalle = ({id, name, price, imgUrl, description, stock}) => {
         
         <div key={id} className="cards">
                     
-            <div className="card w-75">
-                <img src={imgUrl} alt={name} className="card-img-top"/>
+            <div className="card w-50" style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
+                <img src={imgUrl} alt={name} className="card-img-top" style={{display:"flex", height:"80%", width:"80%"}}/>
                 <div className="card-body">
                     <h3 className="card-title">{name}</h3>
                     <p className="card-text">{description}</p>

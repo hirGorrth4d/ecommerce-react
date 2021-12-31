@@ -2,12 +2,14 @@ import React from 'react'
 import CartWidget from './CartWidget.jsx';
 import {Link} from 'react-router-dom'
 
+
 function NavBar() {
     return (
         <div>
             <div className="header_navbar">
                 <Link to="/" style={{textDecoration: "none", color: "primary"}}><h1>FISP</h1></Link>
                 <Link to="/cart"  style={{textDecoration: "none", color: "primary", fontWeight:"bold"}}>
+                    
                     <CartWidget />
                 </Link>
             </div>

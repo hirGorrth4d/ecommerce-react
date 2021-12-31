@@ -24,12 +24,11 @@ function ItemDetalleContainer() {
       })
       .catch(err => console.log(err))
       .finally(()=> setLoading(false))
-    },[itemIdParams])
+    }, [itemIdParams])
 
     return (
         <div className="cards col-lg-12">
            {loading? <h1>Cargando</h1> : <ItemDetalle id={productoUno.id} name={productoUno.name} price={productoUno.price} imgUrl={productoUno.imgUrl} description={productoUno.description} categoria={productoUno.categoria} stock={productoUno.stock} />}
-                               
         </div>
     )
 

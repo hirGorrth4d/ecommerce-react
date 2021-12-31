@@ -4,66 +4,63 @@ import {useState} from 'react'
 import firebase from 'firebase'
 import 'firebase/firestore'
 import getFirestore from '../../firebase/firebase';
+import {Link} from 'react-router-dom'
 
 
 function Cart(Items){
     const [idOrder, setIdOrder]= useState('')
 
-    const {cartList, vaciarCarrito, precioTotal} = useCartContext();
+    const {cartList, vaciarCarrito, precioTotal, eliminarProducto} = useCartContext();
 
+    const [nombre, setNombre] = useState ('')
+    const [tel, setTel] = useState('')
+    const [email, setEmail] = useState('')
+
+    const handleOnChangeName = (e) =>{
+        setNombre(e.target.value);
+    }
+    const handleOnChangeTel = (e) =>{
+        setTel(e.target.value);
+    }
+
+    const handleOnChangeEmail = (e) =>{
+        setEmail(e.target.value);
+    }
 
 
     const generarOrden = (e)=> {
         e.preventDefault();
+
+        
         const orden = {}
 
         orden.date = firebase.firestore.Timestamp.fromDate(new Date());
 
-        orden.buyer = {nombre: "asd", email: "asd@gs", tel: "45456"}
+        orden.buyer = {nombre, email, tel}
         orden.total = precioTotal();
 
         orden.items = cartList.map(Items => {
 
-            return {id: Items.id ,nombre: Items.nombre, precio: Items.precio*Items.cantidad}
+            return {id: Items.id, nombre: Items.name, precio: Items.price*Items.cantidad}
         })
 
         const db = getFirestore()
-        db.collection('orden').add(orden)
-        .then(resp => setIdOrder(resp.id))
+        const orders = db.collection("orders");
+        orders.add(orden)
+        .then(({id}) =>{
+            setIdOrder(id);
+        }).catch(err => console.log(err))
+        .finally(()=> console.log('cargo'))
 
-        // db.collection("ordenes").doc('orden').set(orden)
-        // .then(resp=> setIdOrder(resp.id))
-        // const itemsToUpdate = db.collection('items').where(
-        //     firebase.firestore.FieldPath.documentId() , 'in', cartList.map(i=> i.id)
-        // )
-    
-        // const batch = db.batch();
-        // itemsToUpdate.get()
-
-        // .then( collection=>{
-        //     collection.docs.forEach(docSnapshot => {
-        //         batch.update(docSnapshot.ref, {
-        //             stock: docSnapshot.data().stock - cartList.find(item => item.id === docSnapshot.id).cantidad
-        //         })
-        //     })
-    
-        //     batch.commit().then(resp =>{
-        //         console.log('se actualizo')
-        //     })
-        // })
-    
-        
           console.log('verificar cupon')
           console.log(orden)
-        
+          vaciarCarrito()
     }
 
     
     return (
         <div>
-            <section>
-                {idOrder!== ''|| <label>El id de su orden es : {idOrder}</label>}
-            </section>
+            
 
             <Container>
                 <Row>
@@ -79,12 +76,20 @@ function Cart(Items){
                     <Col>
                         <h4>Precio</h4>
                     </Col>
+                    <Col>
+                        
+                    </Col>
                 </Row>
             </Container>   
-            {cartList.map(Items => <div key={Items.id}>
+            {cartList == '' ? <Link to="/" style={{textDecoration: "none"}}><h2 style={{margin:"50px"}}>No hay items en el carrito</h2><h2>Volver al Inicio</h2></Link>
+            
+            
+            
+            : cartList.map(Items => <div key={Items.id}>
+                
                                         <Container>
 
-                                            <Row xs={4} lg={4} xl={8}>
+                                            <Row xs={4} lg={5} xl={8}>
                                                 
                                                 <Col>
                                                     <img src={Items.imgUrl} alt={Items.item} className="card-img-top"/>
@@ -98,19 +103,25 @@ function Cart(Items){
                                                 <Col className="align-self-center">
                                                     ${Items.price}
                                                 </Col>
+                                                <Col className="align-self-center">
+                                                    <button className="btn btn-outline-primary" onClick={()=> eliminarProducto(Items)}> X </button>
+                                                </Col>
                                             </Row>
                                         </Container>
+                                        
                                     </div>)}
-            <button onClick={()=> vaciarCarrito()} className="btn btn-outline-primary">Vaciar Carrito</button>
-            {`Precio total: ${precioTotal()}`}
-            <form onSubmit={generarOrden}>
-                {/* <input type='text' name='name' placeholder='name' value={formData.name}/>
-                <input type='text' name='phone'placeholder='tel' value={formData.tel} />
-                <input type='email' name='email'placeholder='email' value={formData.email}/> */}
-                <button className="btn btn-outline-primary">Enviar Orden</button>
-            </form>
+                                    <button onClick={()=> vaciarCarrito()} className="btn btn-outline-primary">Vaciar Carrito</button>
+                                        <div style={{padding:"40px", margin:"100", display:"flex", justifyContent:"center", fontWeight:"bold"}}>
+                                            {`Precio total: $ ${precioTotal()}`}
+                                        </div>
+                                        <form onSubmit={generarOrden} style={{display:"flex", flexDirection:"column", width:"100%", alignItems:"center"}}>
+                                            <input onChange={handleOnChangeName} type='text' name='name' placeholder='Name' value={nombre} style={{margin:"10px"}}/>
+                                            <input onChange={handleOnChangeTel} type='text' name='phone'placeholder='Teléfono' value={tel} style={{margin:"10px"}}/>
+                                            <input onChange={handleOnChangeEmail} type='email' name='email'placeholder='Email' value={email} style={{margin:"10px"}}/>
+                                            <button className="btn btn-outline-primary">Enviar Orden</button>
+                                        </form>
 
-            
+                                        {idOrder == '' ? <h2 style={{margin:"40px"}}>Todavia no generaste tu orden</h2> : <h1>Tu Id de compra es: {idOrder}</h1> }
         </div>
 
     )
