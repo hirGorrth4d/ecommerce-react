@@ -5,6 +5,8 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 import getFirestore from '../../firebase/firebase';
 import {Link} from 'react-router-dom'
+import CartList from "./CartList";
+import CartListContainer from "./CartListContainer";
 
 
 function Cart(Items){
@@ -29,9 +31,7 @@ function Cart(Items){
 
 
     const generarOrden = (e)=> {
-        e.preventDefault();
-
-        
+        e.preventDefault();   
         const orden = {}
 
         orden.date = firebase.firestore.Timestamp.fromDate(new Date());
@@ -46,41 +46,26 @@ function Cart(Items){
 
         const db = getFirestore()
         const orders = db.collection("orders");
-        orders.add(orden)
-        .then(({id}) =>{
-            setIdOrder(id);
-        }).catch(err => console.log(err))
-        .finally(()=> console.log('cargo'))
+        if ( orden.buyer.nombre !== '' && orden.buyer.email !== '' && orden.buyer.tel !== ''){
+            orders.add(orden)
+            .then(({id}) =>{
+                setIdOrder(id);
+            }).catch(err => console.log(err))
+            vaciarCarrito()
 
-          console.log('verificar cupon')
-          console.log(orden)
-          vaciarCarrito()
+        }else {
+            alert('No completaste los datos')
+        }
+
+
     }
 
     
     return (
         <div>
             
-
-            <Container>
-                <Row>
-                    <Col>
-                        <h4>Imagen</h4>
-                    </Col>
-                    <Col>
-                        <h4>Descripción</h4>
-                    </Col>
-                    <Col>
-                        <h4>Cantidad</h4>
-                    </Col>
-                    <Col>
-                        <h4>Precio</h4>
-                    </Col>
-                    <Col>
-                        
-                    </Col>
-                </Row>
-            </Container>   
+            <CartListContainer/>
+            
             {cartList == '' ? <Link to="/" style={{textDecoration: "none"}}><h2 style={{margin:"50px"}}>No hay items en el carrito</h2><h2>Volver al Inicio</h2></Link>
             
             
@@ -114,11 +99,11 @@ function Cart(Items){
                                         <div style={{padding:"40px", margin:"100", display:"flex", justifyContent:"center", fontWeight:"bold"}}>
                                             {`Precio total: $ ${precioTotal()}`}
                                         </div>
-                                        <form onSubmit={generarOrden} style={{display:"flex", flexDirection:"column", width:"100%", alignItems:"center"}}>
+                                        <form  id="submit" onSubmit={generarOrden} style={{display:"flex", flexDirection:"column", width:"100%", alignItems:"center"}}>
                                             <input onChange={handleOnChangeName} type='text' name='name' placeholder='Name' value={nombre} style={{margin:"10px"}}/>
                                             <input onChange={handleOnChangeTel} type='text' name='phone'placeholder='Teléfono' value={tel} style={{margin:"10px"}}/>
                                             <input onChange={handleOnChangeEmail} type='email' name='email'placeholder='Email' value={email} style={{margin:"10px"}}/>
-                                            <button className="btn btn-outline-primary">Enviar Orden</button>
+                                            <button className="btn btn-outline-primary" value="submit">Enviar Orden</button>
                                         </form>
 
                                         {idOrder == '' ? <h2 style={{margin:"40px"}}>Todavia no generaste tu orden</h2> : <h1>Tu Id de compra es: {idOrder}</h1> }

@@ -32,6 +32,7 @@ function CartContextProvider ({children}) {
         return cartList.reduce ((acum, Items) => acum = acum + Items.cantidad, 0)
     }
     const vaciarCarrito =()=> {
+        
         setCartList([])
         
     }
