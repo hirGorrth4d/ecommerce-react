@@ -1,7 +1,8 @@
 import React from 'react'
 import {Container, Row, Col} from 'react-bootstrap'
+import CartList from './CartList'
 
-function CartListContainer(){
+function CartListContainer(nombre, tel, email, generarOrden, handleOnChangeEmail, handleOnChangeName, handleOnChangeTel, idOrder){
     return (
         <div>
             <Container>
@@ -22,7 +23,8 @@ function CartListContainer(){
                         
                     </Col>
                 </Row>
-            </Container>
+            </Container> 
+            <CartList generarOrden={generarOrden} handleOnChangeName={handleOnChangeName} nombre={nombre} handleOnChangeTel={handleOnChangeTel} tel={tel} handleOnChangeEmail={handleOnChangeEmail} email={email} idOrder={idOrder} idOrder={idOrder}/>
         </div>
     )
 }

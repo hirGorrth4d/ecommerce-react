@@ -32,10 +32,14 @@ const ItemDetalle = ({id, name, price, imgUrl, description, stock}) => {
 
 
     function onAdd(){
-        setCount(count)
-        agregarProducto({id, name, price, imgUrl, cantidad: count})
-        setInputType("cart")
-
+        if (count >= 1){
+            setCount(count)
+            agregarProducto({id, name, price, imgUrl, cantidad: count})
+            setInputType("cart")
+        } else {
+            
+            alert('Tenes que agregar un producto')
+        }
     }
 
     const [inputType, setInputType ] = useState('button')
@@ -52,8 +56,7 @@ const ItemDetalle = ({id, name, price, imgUrl, description, stock}) => {
                     <h3 className="card-title">{name}</h3>
                     <p className="card-text">{description}</p>
                     <p>${price}</p>
-                    {/* <button onClick={()=>onAdd(3)} className="btn btn-outline-primary">Agregar al carrito</button> */}
-                    <ItemContador stock={stock} id={id} restar={()=> setCount(count -1)} sumar={()=> setCount(count+1)} count={count} />
+                    <ItemContador stock={stock} id={id} restar={()=>{ if (count > 0){setCount(count -1)}}} sumar={()=> setCount(count+1)} count={count} />
                     {
                         inputType === 'button' ? 
                             <ButtonCount  />

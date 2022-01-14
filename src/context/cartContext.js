@@ -12,7 +12,7 @@ function CartContextProvider ({children}) {
 
     const agregarProducto = (Items) => {
         const index = cartList.findIndex(i => i.id === Items.id)
-        // setCartList([...cartList, {...Items}]);
+        
         if (index > -1){
             const oldQy = cartList[index].cantidad;
 
