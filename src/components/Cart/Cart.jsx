@@ -5,7 +5,6 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 import getFirestore from '../../firebase/firebase';
 import {Link} from 'react-router-dom'
-import CartList from "./CartList";
 import CartListContainer from "./CartListContainer";
 
 
@@ -67,9 +66,9 @@ function Cart(Items){
     return (
         <div>
             
-            <CartListContainer generarOrden={generarOrden} handleOnChangeName={handleOnChangeName} nombre={nombre} handleOnChangeTel={handleOnChangeTel} tel={tel} handleOnChangeEmail={handleOnChangeEmail} email={email} idOrder={idOrder} idOrder={idOrder} eliminarProducto={eliminarProducto}/>
+            <CartListContainer />
             
-            {/* {cartList == '' ? <Link to="/" style={{textDecoration: "none"}}><h2 style={{margin:"50px"}}>No hay items en el carrito</h2><h2>Volver al Inicio</h2></Link>
+            {cartList == '' ? <Link to="/" style={{textDecoration: "none"}}><h2 style={{margin:"50px"}}>No hay items en el carrito</h2><h2>Volver al Inicio</h2></Link>
             
             
             
@@ -110,7 +109,7 @@ function Cart(Items){
                                                 <button className="btn btn-outline-primary" value="submit" id="submit">Enviar Orden</button>
                                             </form>
                                         </div>
-                                        {idOrder == '' ? <h2 style={{margin:"40px"}}>Todavia no generaste tu orden</h2> : <h1>Tu Id de compra es: {idOrder}</h1> } */}
+                                        {idOrder == '' ? <h2 style={{margin:"40px"}}>Todavia no generaste tu orden</h2> : <h1>Tu Id de compra es: {idOrder}</h1> }
         </div>
 
     )
